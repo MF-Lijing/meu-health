@@ -1,0 +1,16 @@
+{
+  "name": "MeU 健康适配",
+  "short_name": "MeU 适配",
+  "description": "园区义诊健康适配问卷（竹枕 + 正骨随访，离线可用）",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef4f0",
+  "theme_color": "#2e7d5a",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}

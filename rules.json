@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "note": "竹枕快速适配系统 共享规则源：Excel 生成脚本与 Android 共用，保证规则一致"
+  },
+  "heightOptions": [5.0, 5.5, 6.0, 6.5, 7.0, 8.0, 9.0, 11.0],
+  "heightOptionRange": [5.0, 11.0],
+  "basePillowHeight": [
+    {"gender": "女", "heightBand": "150-160", "value": 5.0},
+    {"gender": "女", "heightBand": "160-165", "value": 5.5},
+    {"gender": "女", "heightBand": "165-170", "value": 6.5},
+    {"gender": "女", "heightBand": "170-175", "value": 6.5},
+    {"gender": "女", "heightBand": "175-185", "value": 7.0},
+    {"gender": "男", "heightBand": "150-160", "value": 5.5},
+    {"gender": "男", "heightBand": "160-165", "value": 6.0},
+    {"gender": "男", "heightBand": "165-170", "value": 6.5},
+    {"gender": "男", "heightBand": "170-175", "value": 6.5},
+    {"gender": "男", "heightBand": "175-185", "value": 7.0}
+  ],
+  "bodyTypeAdjust": {"偏瘦": -0.5, "标准": 0, "偏胖": 0.5},
+  "shoulderAdjust": {"偏窄": -0.5, "标准": 0, "偏宽": 1.0},
+  "totalAdjustClamp": [-0.5, 1.0],
+  "pillowLengthRules": [
+    {"maxHeightExclusive": 165, "length": 35},
+    {"maxHeightExclusive": 175, "length": 37},
+    {"maxHeightExclusive": 999, "length": 39}
+  ],
+  "bodyTypeThresholds": {"thin": 18.5, "normalMax": 24.0},
+  "heightBands": [
+    {"maxExclusive": 160.0, "band": "150-160"},
+    {"maxExclusive": 165.0, "band": "160-165"},
+    {"maxExclusive": 170.0, "band": "165-170"},
+    {"maxExclusive": 175.0, "band": "170-175"},
+    {"maxExclusive": 999.0, "band": "175-185"}
+  ],
+  "locationsDefault": ["工大产业园", "秦淮区社区", "浦口科技园", "雨花软件谷"],
+  "sideSleepNote": "侧卧参考：可在最终枕高基础上试加 0.5cm，若超过 9cm 则取 9cm；最终推荐仍以本表为准。",
+  "expectedResults": [
+    {"gender": "女", "height": 162, "weight": 45, "bodyType": "偏瘦", "shoulder": "偏窄", "posture": "仰卧为主",
+     "expected": {"base": 5.5, "totalAdjust": -0.5, "final": 5.0, "length": 35}},
+    {"gender": "女", "height": 168, "weight": 50, "bodyType": "偏瘦", "shoulder": "偏窄", "posture": "仰卧为主",
+     "expected": {"base": 6.5, "totalAdjust": -0.5, "final": 6.0, "length": 37}},
+    {"gender": "男", "height": 178, "weight": 70, "bodyType": "标准", "shoulder": "偏宽", "posture": "仰卧为主",
+     "expected": {"base": 7.0, "totalAdjust": 1.0, "final": 8.0, "length": 39}},
+    {"gender": "女", "height": 168, "weight": 70, "bodyType": "偏胖", "shoulder": "标准", "posture": "仰卧为主",
+     "expected": {"base": 6.5, "totalAdjust": 0.5, "final": 7.0, "length": 37}},
+    {"gender": "男", "height": 172, "weight": 65, "bodyType": "标准", "shoulder": "标准", "posture": "仰卧为主",
+     "expected": {"base": 6.5, "totalAdjust": 0.0, "final": 6.5, "length": 37}}
+  ]
+}

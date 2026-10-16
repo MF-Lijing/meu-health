@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MeU 健康适配">
+  <meta name="theme-color" content="#2e7d5a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <title>MeU 健康适配</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <!-- 问卷页 -->
+    <section id="view-survey" class="view active">
+      <h2 class="page-title">问卷</h2>
+      <div id="editing-banner" class="card tip hidden">
+        <p>正在修正一条历史记录（保存后覆盖原记录）。</p>
+      </div>
+      <div id="collector-tip" class="card tip hidden">
+        <p>未设置采集人，导出的记录将缺少采集人信息。</p>
+        <button id="btn-goto-settings" class="btn secondary" type="button">去设置采集人</button>
+      </div>
+      <form id="survey-form" autocomplete="off" novalidate>
+        <label>姓名<input id="f-name" required placeholder="请输入姓名"></label>
+        <label>联系方式（电话）<input id="f-phone" type="tel" required placeholder="请输入手机号"></label>
+        <div class="row2">
+          <fieldset class="seg">
+            <legend>性别</legend>
+            <label><input type="radio" name="gender" value="男" required><span>男</span></label>
+            <label><input type="radio" name="gender" value="女"><span>女</span></label>
+          </fieldset>
+          <label>年龄（岁，选填）<input id="f-age" type="number" inputmode="numeric" min="1" max="120" placeholder="如 45"></label>
+        </div>
+        <div class="row2">
+          <label>身高（cm）<input id="f-height" type="number" inputmode="decimal" min="140" max="200" step="1" required placeholder="140-200"></label>
+          <label>体重（kg）<input id="f-weight" type="number" inputmode="decimal" min="30" max="150" step="0.1" required placeholder="30-150"></label>
+        </div>
+        <div class="row2">
+          <label>肩宽自评
+            <select id="f-shoulder" required>
+              <option value="" disabled selected>请选择</option>
+              <option>偏窄</option><option>标准</option><option>偏宽</option>
+            </select>
+          </label>
+          <label>睡姿
+            <select id="f-posture" required>
+              <option value="" disabled selected>请选择</option>
+              <option>仰卧为主</option><option>侧卧为主</option><option>趴卧为主</option><option>不确定</option>
+            </select>
+          </label>
+        </div>
+        <label>采集地点
+          <div class="loc-field">
+            <input id="f-location" list="loc-list" placeholder="下拉选择，或直接键入" required>
+            <span class="loc-caret" aria-hidden="true"></span>
+            <div id="loc-menu" class="loc-menu hidden"></div>
+          </div>
+        </label>
+        <label>情况描述（选填，可手写，可用输入法语音键听写）
+          <textarea id="f-note" rows="2" placeholder="如：颈部粗短、肩部脂肪厚、锁骨突出、腰间盘突出、肩周炎、富贵包、拉伤、肌肉疼痛、痛经…"></textarea>
+        </label>
+        <label>是否需要正骨治疗
+          <select id="f-osteo">
+            <option selected>不需要</option>
+            <option>需要</option>
+          </select>
+        </label>
+        <label class="cond-field hidden" id="osteo-note-wrap">正骨备注（计划时间、可承受费用上限等，选填）
+          <textarea id="f-osteo-note" rows="2" placeholder="如：计划 2 周后开始，可承受 300 元/周"></textarea>
+        </label>
+        <label>购买「肩颈腰腿贴」数量（袋）：六片装与三片装分别填写，不买留空
+          <div class="row2">
+            <label>六片装（袋）<input id="f-patch-six" type="number" inputmode="numeric" min="0" step="1" placeholder="不买留空"></label>
+            <label>三片装（袋）<input id="f-patch-three" type="number" inputmode="numeric" min="0" step="1" placeholder="不买留空"></label>
+          </div>
+        </label>
+        <button id="btn-submit" class="btn primary" type="submit">生成适配</button>
+      </form>
+    </section>
+
+    <!-- 结果页 -->
+    <section id="view-result" class="view">
+      <h2 class="page-title">适配结果</h2>
+      <div id="result-body"></div>
+      <button id="btn-back-survey" class="btn secondary" type="button">返回问卷</button>
+    </section>
+
+    <!-- 历史页 -->
+    <section id="view-history" class="view">
+      <h2 class="page-title">历史记录</h2>
+      <div id="history-body"></div>
+      <div class="history-actions">
+        <button id="btn-export" class="btn primary" type="button">导出 CSV</button>
+        <button id="btn-clear" class="btn danger" type="button">清空</button>
+      </div>
+    </section>
+
+    <!-- 说明页 -->
+    <section id="view-info" class="view">
+      <h2 class="page-title">使用说明</h2>
+      <img class="brand-logo" src="brand/logo.png" alt="小熊开心地">
+      <div id="info-body" class="prose"></div>
+      <p class="copyright">© 2026 铭方咨询 MFcubIC™</p>
+    </section>
+
+    <!-- 设置页 -->
+    <section id="view-settings" class="view">
+      <h2 class="page-title">设置 · 采集人</h2>
+      <form id="settings-form" autocomplete="off" novalidate>
+        <label>采集人姓名<input id="s-name" required placeholder="请输入姓名"></label>
+        <label>采集人手机号<input id="s-phone" type="tel" required placeholder="请输入手机号"></label>
+        <button class="btn primary" type="submit">保存</button>
+      </form>
+      <p id="settings-msg" class="ok-msg hidden">已保存 ✓</p>
+      <div class="prose small">
+        <p>保存后，现场每条问卷将自动记录「采集地点 + 采集人 + 采集人手机」，并在历史与导出 CSV 中体现——方便后期按团队/地点追溯。</p>
+      </div>
+      <img class="brand-logo" src="brand/logo.png" alt="小熊开心地">
+      <p class="copyright">© 2026 铭方咨询 MFcubIC™</p>
+    </section>
+  </main>
+
+  <nav id="navbar">
+    <button data-view="survey" class="active">
+      <svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h7L18 8.5v9A2.5 2.5 0 0 1 15.5 20h-9A2.5 2.5 0 0 1 4 17.5z"/><path d="M8 13h7M8 16.5h4.5"/><circle cx="8.6" cy="9.6" r="1.1"/></svg>
+      问卷
+    </button>
+    <button data-view="history">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.5V12l3 2"/></svg>
+      历史
+    </button>
+    <button data-view="info">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M12 11v5"/><circle cx="12" cy="8" r=".6" fill="currentColor"/></svg>
+      说明
+    </button>
+    <button data-view="settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4 18 18M18 6l-1.6 1.6M7.6 16.4 6 18"/></svg>
+      设置
+    </button>
+  </nav>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
